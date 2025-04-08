@@ -22,8 +22,8 @@ Route::get('/home', function() {
 });
 
  
-Route::get('/users', [UserController::class, 'index'])->middleware(CheckRole::class);
-Route::get("/user/{id}", [UserController::class, 'show']);
+// Route::get('/users', [UserController::class, 'index']);
+// Route::get("/user/{id}", [UserController::class, 'show']);
 
 // Route::get("/user/{id?}", function($id = null) {
 //     return "Bonjour $id";
@@ -32,6 +32,8 @@ Route::get("/user/{id}", [UserController::class, 'show']);
 Route::get('/admin', function() {
     return view('admin');
 })->middleware('CheckRole:admin');
+
+route::resource('posts', PostController::class);
 
 // Route::get('/view', function() {
 //     return view('accueil');
