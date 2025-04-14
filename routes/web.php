@@ -7,6 +7,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\FormDataController;
 use App\Http\Controllers\InvokeController;
 use App\Http\Controllers\RessourceController;
+use App\Http\Controllers\StagiaireController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\CheckRole;
 use App\Models\Post;
@@ -36,6 +37,8 @@ Route::get('/admin', function() {
 Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
 
 route::resource('posts', PostController::class);
+
+Route::resource('stagiaires' , StagiaireController::class);
 
 // Route::get('/view', function() {
 //     return view('accueil');
