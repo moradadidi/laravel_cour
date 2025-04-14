@@ -7,14 +7,15 @@
         <a href="{{ route('posts.create') }}" class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200">Add Post</a>
     </div>
 
-    <form method="GET" action="{{ route('posts.index') }}" class="mb-6">
+    <!-- Updated search form -->
+    <form method="GET" action="{{ route('posts.search') }}" class="mb-6">
         <div class="flex items-center gap-4 w-1/2">
             <input 
                 type="text" 
                 name="search" 
                 value="{{ request('search') }}" 
                 placeholder="Search posts..." 
-                class="px-4 py-2  border rounded -md focus:outline-none focus:ring focus:border-blue-300 w-full"
+                class="px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300 w-full"
             />
             <button 
                 type="submit" 

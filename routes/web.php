@@ -33,6 +33,8 @@ Route::get('/admin', function() {
     return view('admin');
 })->middleware('CheckRole:admin');
 
+Route::get('/posts/search', [PostController::class, 'search'])->name('posts.search');
+
 route::resource('posts', PostController::class);
 
 // Route::get('/view', function() {

@@ -67,16 +67,26 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-    public function index(Request $request) {   
+    public function index() {   
+        $posts = DB::table('posts')
+            ->orderBy('created_at', 'desc')
+            ->paginate(5); 
+        return view('posts.index', compact('posts'));
+    }
+
+    // Handles the search query and returns the filtered posts
+    public function search(Request $request) {
         $searchTerm = $request->input('search');
         $posts = DB::table('posts')
-            ->when($searchTerm, function ($query, $searchTerm) {
+            ->where(function ($query) use ($searchTerm) {
                 $query->where('name', 'like', '%' . $searchTerm . '%')
                       ->orWhere('email', 'like', '%' . $searchTerm . '%')
                       ->orWhere('message', 'like', '%' . $searchTerm . '%');
             })
-            ->paginate(5); 
-        return view('posts.index', compact('posts'));
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
+        return view('posts.index', ['posts' => $posts]);
     }
 
     public function show($id) {
