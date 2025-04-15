@@ -67,21 +67,25 @@ use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
-    public function index() {   
+    public function index()
+    {
         $posts = DB::table('posts')
             ->orderBy('created_at', 'desc')
-            ->paginate(5); 
+            ->paginate(5);
         return view('posts.index', compact('posts'));
     }
 
     // Handles the search query and returns the filtered posts
-    public function search(Request $request) {
+    public function search(Request $request)
+    {
         $searchTerm = $request->input('search');
+        // $posts = DB::select('select * from posts where name like ? or email like ? or message like ?', ["%$searchTerm%", "%$searchTerm%", "%$searchTerm%"]);
+
         $posts = DB::table('posts')
             ->where(function ($query) use ($searchTerm) {
                 $query->where('name', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('email', 'like', '%' . $searchTerm . '%')
-                      ->orWhere('message', 'like', '%' . $searchTerm . '%');
+                    ->orWhere('email', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('message', 'like', '%' . $searchTerm . '%');
             })
             ->orderBy('created_at', 'desc')
             ->paginate(5);
@@ -89,16 +93,19 @@ class PostController extends Controller
         return view('posts.index', ['posts' => $posts]);
     }
 
-    public function show($id) {
+    public function show($id)
+    {
         $post = DB::table('posts')->where('id', $id)->first();
         return view('posts.show', compact('post'));
     }
 
-    public function create() {
+    public function create()
+    {
         return view('posts.create');
     }
 
-    public function store(Request $request) {
+    public function store(Request $request)
+    {
         $post = $request->validate([
             'name' => 'required',
             'email' => 'required',
@@ -110,12 +117,14 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
-    public function edit($id) {
+    public function edit($id)
+    {
         $post = DB::table('posts')->where('id', $id)->first();
         return view('posts.edit', compact('post'));
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         DB::table('posts')->where('id', $id)->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -124,7 +133,8 @@ class PostController extends Controller
         return redirect()->route('posts.index');
     }
 
-    public function destroy($id) {
+    public function destroy($id)
+    {
         DB::table('posts')->where('id', $id)->delete();
         return redirect()->route('posts.index');
     }
