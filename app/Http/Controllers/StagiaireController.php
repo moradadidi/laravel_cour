@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\DB;
 class StagiaireController extends Controller
 {
     public function index() {
-        $stagiaires = Stagiaire::all();
+        $stagiaires = Stagiaire::with('groupes')->get();
         return view('stagiaires.index', compact('stagiaires'));
     }
     public function show($id) {

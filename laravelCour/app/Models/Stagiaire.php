@@ -11,7 +11,6 @@ class Stagiaire extends Model
     protected $table = 'stagiaires';
     protected $fillable = ['nom', 'prenom', 'email', 'telephone', 'adresse'];
 
-
     public function groupes()
     {
         return $this->belongsToMany(Groupe::class, 'stagiaire_groupe', 'stagiaire_id', 'groupe_id');

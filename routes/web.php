@@ -5,6 +5,7 @@ use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\FormDataController;
+use App\Http\Controllers\GroupeController;
 use App\Http\Controllers\InvokeController;
 use App\Http\Controllers\RessourceController;
 use App\Http\Controllers\StagiaireController;
@@ -39,6 +40,8 @@ Route::get('/posts/search', [PostController::class, 'search'])->name('posts.sear
 route::resource('posts', PostController::class);
 
 Route::resource('stagiaires' , StagiaireController::class);
+
+Route::resource('groupes' , GroupeController::class);
 
 // Route::get('/view', function() {
 //     return view('accueil');
